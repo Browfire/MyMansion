@@ -4,9 +4,20 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="previous">Volver</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="imageDescription">imageDescription</string>
+    <string name="imageList">imageList</string>
+
+    <string name="email_subject">Consulta propiedad: </string>
+    <string name="email_text">Hola\nEstoy interesado en más informacion y concertar una cita.\nPor favor contactarme a este correo. </string>
+
+    <string name="fab">fab</string>
+    <string name="textName">Nombre</string>
+    <string name="textPrice">$$$</string>
+    <string name="textDescription">Descripción</string>
+    <string name="textListPrice">Precio lista</string>
+    <string name="textListName">Nombre lista</string>
 </resources>
