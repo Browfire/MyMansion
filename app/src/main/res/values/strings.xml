@@ -11,13 +11,17 @@
     <string name="imageDescription">imageDescription</string>
     <string name="imageList">imageList</string>
 
-    <string name="email_subject">Consulta propiedad: </string>
-    <string name="email_text">Hola\nEstoy interesado en más informacion y concertar una cita.\nPor favor contactarme a este correo. </string>
+    <string name= "email_address">info@housy</string>
+    <string name="email_subject">Consulta</string>
+    <string name="email_text1">Hola\nVi la propiedad</string>
+    <string name="email_text2">y me gustaría que me contactaran a este correo
+    o al siguiente número __________\nQuedo atento.</string>
 
     <string name="fab">fab</string>
     <string name="textName">Nombre</string>
     <string name="textPrice">$$$</string>
     <string name="textDescription">Descripción</string>
+    <string name="textReason">Motivo de venta</string>
     <string name="textListPrice">Precio lista</string>
     <string name="textListName">Nombre lista</string>
 </resources>

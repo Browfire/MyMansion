@@ -13,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,8 +20,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class SecondFragment : Fragment() {
 
     private val myViewModel: MansionViewModel by activityViewModels()
-    lateinit var propiedad: String
-    private var idMansion = 0
+    private lateinit var mansionName: String
+    private var mansionId = 0
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -35,33 +34,44 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        myViewModel.mansionSelection.observe(viewLifecycleOwner, Observer {
-            idMansion=it
-            Log.d("id",it.toString())
-            myViewModel.getOneMansionDetails(idMansion).observe(viewLifecycleOwner, Observer {
+        myViewModel.mansionSelection.observe(viewLifecycleOwner, { id ->
+
+            mansionId = id
+            Log.d("id", id.toString())
+
+            myViewModel.getOneMansionDetails(mansionId).observe(viewLifecycleOwner, {
 
                 it?.let {
+
                     val imageSelected = view.findViewById<ImageView>(R.id.imageDetail)
                     Glide.with(this).load(it.photo).fitCenter().into(imageSelected)
 
                     val price = view.findViewById<TextView>(R.id.tvPrice)
                     val name = view.findViewById<TextView>(R.id.tvName)
                     val description = view.findViewById<TextView>(R.id.tvDescription)
+                    val reason = view.findViewById<TextView>(R.id.tvReason)
 
                     price.text = it.price.toString()
                     name.text = it.name
                     description.text = it.description
+                    reason.text = it.cause
 
-                    propiedad = it.name
+                    mansionName = it.name
+
                 }
             })
         })
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            val addresses = "maildelacorredora@demansiones.com"
-            val subject = getString(R.string.email_subject)+" " + propiedad
-            val text = getString(R.string.email_text)
-            composeEmail(addresses, subject, text)
+
+            val address = getString(R.string.email_address)
+            val subject = getString(R.string.email_subject) +
+                    " " + mansionName +
+                    " id " + mansionId
+            val text = getString(R.string.email_text1) +
+                    " " + mansionName +
+                    " " + getString(R.string.email_text2)
+            composeEmail(address, subject, text)
 
         }
 
@@ -71,11 +81,12 @@ class SecondFragment : Fragment() {
 
     }
 
-    fun composeEmail(addresses: String, subject: String, text: String) {
+    private fun composeEmail(address: String, subject: String, text: String) {
+
         val intent = Intent(Intent.ACTION_SEND)
         intent.data = Uri.parse("mailto:")
         intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(addresses))
+        intent.putExtra(Intent.EXTRA_EMAIL, address)
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)
         intent.putExtra(Intent.EXTRA_TEXT, text)
 
@@ -84,6 +95,7 @@ class SecondFragment : Fragment() {
         } catch (e: Exception) {
             Toast.makeText(context, "e.message", Toast.LENGTH_LONG).show()
         }
+
     }
 
 }

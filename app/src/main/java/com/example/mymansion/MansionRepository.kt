@@ -24,8 +24,8 @@ class MansionRepository(private val myMansionDao: MansionDao) {
         service.onSuccess {
             when(it.code()) {
 
-                in 200..299 -> it.body()?.let {
-                    myMansionDao.insertAllMansionsItems(it)
+                in 200..299 -> it.body()?.let { list ->
+                    myMansionDao.insertAllMansionsItems(list)
                 }
 
                 in 300..599 -> Log.e("ERROR", it.errorBody().toString())
@@ -47,8 +47,8 @@ class MansionRepository(private val myMansionDao: MansionDao) {
         service.onSuccess {
             when(it.code()) {
 
-                in 200..299 -> it.body()?.let {
-                    myMansionDao.insertOneMansionDetails(it)
+                in 200..299 -> it.body()?.let { details ->
+                    myMansionDao.insertOneMansionDetails(details)
                 }
 
                 in 300..599 -> Log.e("ERROR", it.errorBody().toString())

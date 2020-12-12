@@ -18,17 +18,19 @@ class MansionAdapter(val callback: FirstFragment): RecyclerView.Adapter<MansionA
     }
 
     inner class MansionViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val listImage = itemView.findViewById<ImageView>(R.id.imageRecycler)
-        val listPrice = itemView.findViewById<TextView>(R.id.tvListPrice)
-        val listName = itemView.findViewById<TextView>(R.id.tvListName)
+        val listImage: ImageView = itemView.findViewById(R.id.imageRecycler)
+        val listPrice: TextView = itemView.findViewById(R.id.tvListPrice)
+        val listName:TextView  = itemView.findViewById(R.id.tvListName)
         val click = itemView.setOnClickListener {
             callback.passItemInfo(mansionList[adapterPosition])
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MansionAdapter.MansionViewHolder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.mansionlist_item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+            MansionAdapter.MansionViewHolder {
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.mansionlist_item, parent, false)
         return MansionViewHolder(view)
     }
 

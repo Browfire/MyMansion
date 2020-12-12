@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,7 @@ import com.example.mymansion.model.MansionItem
 class FirstFragment : Fragment(), MansionAdapter.PassMansionData {
 
     private val myViewModel: MansionViewModel by activityViewModels()
-    lateinit var myMansionAdapter: MansionAdapter
+    private lateinit var myMansionAdapter: MansionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,20 +38,22 @@ class FirstFragment : Fragment(), MansionAdapter.PassMansionData {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = myMansionAdapter
 
-        myViewModel.allMansions.observe(viewLifecycleOwner, Observer {
+        myViewModel.allMansions.observe(viewLifecycleOwner, {
             Log.d("llegan mansiones", it.toString())
             myMansionAdapter.updateAdapter(it)
         })
 
-        myViewModel.getOneMansionDetails(1).observe(viewLifecycleOwner, Observer {
-            
+        myViewModel.getOneMansionDetails(1).observe(viewLifecycleOwner, {
+
         })
 
     }
 
     override fun passItemInfo(mansion: MansionItem) {
+
         val mansionSelectedId = mansion.id
         myViewModel.mansionSelected(mansionSelectedId)
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
     }
 }
